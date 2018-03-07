@@ -1,0 +1,6 @@
+server:
+  port: 8761 #启动端口
+eureka:
+  client:
+    registerWithEureka: false #false:表示仅做服务器，不会作为客户端注册到eureka   
+    fetchRegistry: false #false：无需注册自身
