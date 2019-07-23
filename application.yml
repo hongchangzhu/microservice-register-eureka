@@ -2,20 +2,25 @@ server:
   port: 8761 #启动端口
   servlet:    context-path: /register-center
 spring:
+  security:    user:      name: root      password: 123456
+      roles: USER
   application:
     name: register-center
     
 eureka:
-  client: 
+  client:
     register-with-eureka: false #false:表示仅做服务器，不会作为客户端注册到eureka
     fetch-registry: false #false：表示从Eureka Server获取注册信息，默认为true，单点可以设置为false，多点的话需要从其他Eureka Server同步注册信息
-    #service-url:
-    #  defaultZone: http://localhost:8761/register-center/  #注册地址，eureka服务地址
+    service-url:
+      defaultZone: http://root:123456@localhost:8761/register-center/  #注册地址，eureka服务地址
+      # defaultZone: http://localhost:8761/register-center/eureka/
       #建议在生成环境不要关闭自我保护功能，因为当网络故障但客户端其实正常时也会导致eureka把这个节点从服务列表中剔除
-  server: 
+  server:
     enable-self-preservation: false  #false：关闭自我保护功能，当为true时，客户端服务关闭后，eureka不会把节点从服务列表中剔除 
     eviction-interval-timer-in-ms: 10000  #剔除故障服务节点间隔时间，单位：毫秒
-  instance: 
+  instance:
+    hostname: localhost
     lease-expiration-duration-in-seconds: 90  #表示eureka server至上一次收到client的心跳之后，等待下一次心跳的超时时间，在这个时间内若没收到下一次心跳，则将移除该instance,默认为90秒
     
+       
     
